@@ -14,5 +14,5 @@ export interface GraphConfig {
 }
 
 export interface FlowData {
-  node?: any[]
+  node: any[];
 }
