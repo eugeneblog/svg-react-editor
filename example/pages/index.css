@@ -1,0 +1,20 @@
+body,
+html,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  color: #1890ff;
+  cursor: pointer;
+}
+
+.normal {
+  height: 80vh;
+  padding: 48px;
+}
+
+.graph {
+  background: rgb(246, 247, 249);
+}
