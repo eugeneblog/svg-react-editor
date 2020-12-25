@@ -1,3 +1,6 @@
+import { FlowType } from '@/components/Flow';
+import { ReactComponentElement } from 'react';
+
 export interface Graph {}
 
 export interface GraphConfig {
@@ -16,3 +19,5 @@ export interface GraphConfig {
 export interface FlowData {
   node: any[];
 }
+
+export interface EditorChilds extends ReactComponentElement<FlowType> {}

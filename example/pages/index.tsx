@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './index.css';
-import Editor, { Flow } from '../../lib/index';
+import Editor, { Flow } from '../../src/index';
 
 const radius = 6;
 const step = radius * 2;
@@ -19,8 +19,24 @@ const data = {
   }),
 };
 
-export default () => (
-  <Editor className={styles.normal}>
-    <Flow className={styles.graph} data={data} />
-  </Editor>
-);
+const initialFlowData = [
+  { title: 'Tab 1', content: 'Content of Tab 1', key: '1', data },
+  { title: 'Tab 2', content: 'Content of Tab 2', key: '2', data: null },
+  {
+    title: 'Tab 3',
+    content: 'Content of Tab 3',
+    key: '3',
+    closable: false,
+    data: null,
+  },
+];
+
+const Graph = () => {
+  return (
+    <Editor className={styles.normal}>
+      <Flow id="" data={initialFlowData} />
+    </Editor>
+  );
+};
+
+export default Graph;

@@ -9,7 +9,7 @@
   },
   "repository": "/svg-react-editor",
   "scripts": {
-    "start": "cross-env APP_ROOT=example NODE_ENV='development' umi dev",
+    "start": "cross-env APP_ROOT=example umi dev",
     "build": "father-build",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",
     "test": "umi-test",
@@ -61,6 +61,7 @@
   ],
   "dependencies": {
     "@types/d3": "^6.2.0",
+    "antd": "^4.9.4",
     "d3": "^6.3.1",
     "loadsh": "^0.0.4"
   }
