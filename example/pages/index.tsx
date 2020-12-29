@@ -34,7 +34,7 @@ const initialFlowData = [
 const Graph = () => {
   return (
     <Editor className={styles.normal}>
-      <Flow id="" data={initialFlowData} />
+      <Flow id="container" data={initialFlowData} />
     </Editor>
   );
 };

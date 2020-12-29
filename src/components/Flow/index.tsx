@@ -1,6 +1,12 @@
+import React, {
+  ReactNode,
+  SVGAttributes,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
 import * as d3 from 'd3';
 import { ZoomBehavior } from 'd3';
-import React from 'react';
 import { FLOW_CONTAINER_ID } from '../../common/constants';
 import { GraphConfig, EditorChildrenFunComponent } from '@/common/interface';
 
@@ -12,16 +18,28 @@ interface FlowProps {
   graphConfig?: Partial<GraphConfig>;
 }
 
-const Flow: EditorChildrenFunComponent<FlowProps> = () => {
+const Flow: EditorChildrenFunComponent<FlowProps> = ({ id }) => {
+  const [svgAttrs, setSvgAttrs] = useState<SVGAttributes<SVGElement>>({});
+  const ref = useRef(null);
+  useEffect(() => {
+    setSvgAttrs({ viewBox: '0 0 1000 500' });
+    const svg = d3.select(ref.current);
+    const g = svg.append('g');
+    const zoom = d3.zoom().scaleExtent([1, 40]);
+    g.selectAll('circle').data([]);
+  }, []);
+
   return (
     <div
-      id="ss"
+      id={id}
       style={{
         border: '1px solid #f4f4f4',
         background: '#f3f3f3',
         height: '100%',
       }}
-    />
+    >
+      <svg ref={ref} {...svgAttrs}></svg>
+    </div>
   );
 };
 
