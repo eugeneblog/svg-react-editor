@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import pick from 'lodash/pick';
 import { EditorContext } from '../EditorContext';
 import { Graph, EditorChilds } from '@/common/interface';
-import { FlowType } from '@/components/Flow';
+import { EDITOR_CHILDRENS } from '../../common/constants';
 
 interface EditorProps {
   style?: React.CSSProperties;
   className?: string;
+  children: EditorChilds;
 }
 
-interface EditorType extends React.FC<EditorProps> {}
+export interface EditorType extends React.FC<EditorProps> {}
 
 const Editor: EditorType = props => {
   const [graph] = useState<null | Graph>(null);
-  const EditorChildren: React.ReactComponentElement<FlowType>[] = [];
+  const EditorChildren: EditorChilds[] = [];
 
   React.Children.forEach(props.children, (child: React.ReactNode) => {
     if (!child || !(child instanceof Object)) {
       return;
     }
-    if ((child as EditorChilds).type.typename === 'Flow') {
+    if (EDITOR_CHILDRENS[(child as EditorChilds).type.typename]) {
       EditorChildren.push(child as EditorChilds);
     }
   });

@@ -2,7 +2,7 @@ import * as d3 from 'd3';
 import { ZoomBehavior } from 'd3';
 import React from 'react';
 import { FLOW_CONTAINER_ID } from '../../common/constants';
-import { GraphConfig, FlowData, Graph } from '@/common/interface';
+import { GraphConfig, EditorChildrenFunComponent } from '@/common/interface';
 
 interface FlowProps {
   id: string;
@@ -12,11 +12,7 @@ interface FlowProps {
   graphConfig?: Partial<GraphConfig>;
 }
 
-export interface FlowType extends React.FC<FlowProps> {
-  typename: string;
-}
-
-const Flow: FlowType = () => {
+const Flow: EditorChildrenFunComponent<FlowProps> = () => {
   return (
     <div
       id="ss"
@@ -29,7 +25,7 @@ const Flow: FlowType = () => {
   );
 };
 
-Flow.typename = 'Flow';
+Flow.typename = 'FLOW';
 
 // class Flow extends React.Component<FlowProps, FlowState> {
 //   static defaultProps = {
