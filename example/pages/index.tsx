@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './index.css';
 import Editor, { Flow } from '../../src/index';
 
@@ -19,22 +19,10 @@ const data = {
   }),
 };
 
-const initialFlowData = [
-  { title: 'Tab 1', content: 'Content of Tab 1', key: '1', data },
-  { title: 'Tab 2', content: 'Content of Tab 2', key: '2', data: null },
-  {
-    title: 'Tab 3',
-    content: 'Content of Tab 3',
-    key: '3',
-    closable: false,
-    data: null,
-  },
-];
-
 const Graph = () => {
   return (
     <Editor className={styles.normal}>
-      <Flow id="container" data={initialFlowData} />
+      <Flow />
     </Editor>
   );
 };
