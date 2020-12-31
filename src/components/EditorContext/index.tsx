@@ -5,6 +5,7 @@ export interface FlowTabData extends TabPaneProps {
   attrs?: React.SVGAttributes<SVGElement>;
   title?: string;
   key?: TabsProps['activeKey'];
+  data?: any;
 }
 
 interface EditorContextProps {

@@ -28,6 +28,7 @@ const Flow: EditorChildrenFunComponent<FlowProps> = () => {
     <>
       {ctx.tabs.length ? (
         <Tabs
+          tabPosition="bottom"
           type="editable-card"
           animated={false}
           className={styles.tabs}
@@ -39,7 +40,7 @@ const Flow: EditorChildrenFunComponent<FlowProps> = () => {
         >
           {ctx.tabs.map(pane => (
             <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-              <Drawing attrs={pane.attrs} />
+              <Drawing attrs={pane.attrs} data={pane.data} />
             </TabPane>
           ))}
         </Tabs>

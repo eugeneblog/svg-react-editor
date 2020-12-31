@@ -1,4 +1,4 @@
-import { ReactComponentElement } from 'react';
+import { ReactComponentElement, Component } from 'react';
 
 export interface Graph {}
 
@@ -29,22 +29,18 @@ export enum editorComponentList {
 }
 
 /* Editor 函数子组件 */
-export interface EditorChildrenFunComponent<P = {}>
-  extends React.FunctionComponent<P> {
+export interface EditorChildrenFunComponent<P = {}> extends React.FC<P> {
   typename: editorComponentTname;
 }
 
-/* Editor class子组件 */
 export interface EditorChildrenClassComponent<P = {}, S = {}>
-  extends React.ComponentClass<P, S> {
-  typename: editorComponentTname;
+  extends React.Component<P, S> {
+  readonly typename: editorComponentTname;
 }
 
 /* Editor 子组件类型, 包含函数和类 */
 export interface EditorChilds
-  extends ReactComponentElement<
-    EditorChildrenFunComponent | EditorChildrenClassComponent
-  > {}
+  extends ReactComponentElement<EditorChildrenFunComponent> {}
 
 export function extend<T extends Object, U extends Object>(
   first: T,
