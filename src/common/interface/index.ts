@@ -33,9 +33,11 @@ export interface EditorChildrenFunComponent<P = {}> extends React.FC<P> {
   typename: editorComponentTname;
 }
 
-export interface EditorChildrenClassComponent<P = {}, S = {}>
-  extends React.Component<P, S> {
-  readonly typename: editorComponentTname;
+export class EditorChildrenClassComponent<P = {}, S = {}> extends Component<
+  P,
+  S
+> {
+  static typename: editorComponentTname;
 }
 
 /* Editor 子组件类型, 包含函数和类 */

@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './index.css';
-import Editor, { Flow } from '../../src/index';
+import Editor, { Flow, ItemPane } from '../../src/index';
 
 const radius = 6;
 const step = radius * 2;
@@ -23,6 +23,7 @@ const Graph = () => {
   return (
     <Editor className={styles.normal}>
       <Flow />
+      <ItemPane />
     </Editor>
   );
 };
