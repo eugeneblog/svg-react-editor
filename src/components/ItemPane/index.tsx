@@ -1,15 +1,13 @@
 import React from 'react';
-import {
-  EditorChildrenClassComponent,
-  editorComponentTname,
-} from '../../common/interface';
+import { EditorChildrenClassComponent } from '../../common/interface';
+import styles from './index.less';
 
 interface ItemPaneProps {}
 
 export default class ItemPane extends React.Component<ItemPaneProps>
   implements EditorChildrenClassComponent {
-  static typename: editorComponentTname = 'NODEPANE';
+  static typename = 'NODEPANE';
   render() {
-    return <div>aa</div>;
+    return <div className={styles.itemPane}></div>;
   }
 }

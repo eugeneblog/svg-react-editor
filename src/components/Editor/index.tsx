@@ -4,6 +4,7 @@ import { TabsProps } from 'antd/lib/tabs';
 import { EditorContext, FlowTabData } from '../EditorContext';
 import { EditorChilds } from '@/common/interface';
 import { EDITOR_CHILDRENS } from '../../common/constants';
+import styles from './index.less';
 
 interface EditorProps {
   style?: React.CSSProperties;
@@ -77,7 +78,12 @@ const Editor: EditorType = props => {
         },
       }}
     >
-      <div {...pick(props, ['className', 'style'])}>{EditorChildren}</div>
+      <div
+        className={styles.editorContainer}
+        {...pick(props, ['className', 'style'])}
+      >
+        {EditorChildren}
+      </div>
     </EditorContext.Provider>
   );
 };

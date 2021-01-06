@@ -5,9 +5,19 @@ interface DrawingProps {
   data: any;
 }
 
-const defaultStyle: React.CSSProperties = { background: '#f4f4f4' };
+const svgStyle: React.CSSProperties = {
+  left: 0,
+  top: 0,
+  width: '100%',
+  height: '100%',
+  background: '#f4f4f4',
+  backgroundImage: 'none',
+  minHeight: '1523px',
+  minWidth: '3671px',
+};
+
 const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
-  return <svg {...attrs} viewBox="0 0 1000 500" style={defaultStyle}></svg>;
+  return <svg style={svgStyle} {...attrs}></svg>;
 };
 
 export default Drawing;

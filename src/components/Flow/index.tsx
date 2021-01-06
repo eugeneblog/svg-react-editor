@@ -25,7 +25,7 @@ const Flow: EditorChildrenFunComponent<FlowProps> = () => {
   };
 
   return (
-    <>
+    <div className={styles.flow}>
       {ctx.tabs.length ? (
         <Tabs
           tabPosition="bottom"
@@ -45,7 +45,7 @@ const Flow: EditorChildrenFunComponent<FlowProps> = () => {
           ))}
         </Tabs>
       ) : null}
-    </>
+    </div>
   );
 };
 
