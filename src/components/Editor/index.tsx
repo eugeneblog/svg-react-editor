@@ -22,6 +22,12 @@ const _DEFAULT_FLOW_TABS = [
     data: null,
     closable: false,
   },
+  {
+    title: 'draw 2',
+    content: 'Content of Tab 1',
+    key: '2',
+    data: null,
+  },
 ];
 
 let newTabInd = 0;

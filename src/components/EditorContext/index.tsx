@@ -1,4 +1,4 @@
-import React, { ReactText } from 'react';
+import React from 'react';
 import { TabPaneProps, TabsProps } from 'antd/lib/tabs/index';
 
 export interface FlowTabData extends TabPaneProps {

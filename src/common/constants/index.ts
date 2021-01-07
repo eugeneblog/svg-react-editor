@@ -7,4 +7,5 @@ export const EDITOR_CHILDRENS = {
   TOOL: editorComponentList.TOOL,
   NODEPANE: editorComponentList.NODEPANE,
   MINIMAP: editorComponentList.MINIMAP,
+  MENU: editorComponentList.MINIMAP,
 };

@@ -20,12 +20,18 @@ export interface FlowData {
 }
 
 /* 允许的组件名称 */
-export type editorComponentTname = 'FLOW' | 'TOOL' | 'NODEPANE' | 'MINIMAP';
+export type editorComponentTname =
+  | 'FLOW'
+  | 'TOOL'
+  | 'NODEPANE'
+  | 'MINIMAP'
+  | 'MENU';
 export enum editorComponentList {
   FLOW = 'FLOW',
   TOOL = 'TOOL',
   NODEPANE = 'NODEPANE',
   MINIMAP = 'MINIMAP',
+  MENU = 'MENU',
 }
 
 /* Editor 函数子组件 */

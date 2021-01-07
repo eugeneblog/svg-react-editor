@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './index.less';
 
 interface DrawingProps {
   attrs: any;
@@ -17,7 +18,20 @@ const svgStyle: React.CSSProperties = {
 };
 
 const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
-  return <svg style={svgStyle} {...attrs}></svg>;
+  return (
+    <div className={styles.digaramContainer}>
+      <svg style={svgStyle} {...attrs}>
+        <circle
+          cx="100"
+          cy="50"
+          r="40"
+          stroke="black"
+          stroke-width="2"
+          fill="red"
+        />
+      </svg>
+    </div>
+  );
 };
 
 export default Drawing;
