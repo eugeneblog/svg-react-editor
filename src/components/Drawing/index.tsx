@@ -11,7 +11,6 @@ const svgStyle: React.CSSProperties = {
   top: 0,
   width: '100%',
   height: '100%',
-  background: '#f4f4f4',
   backgroundImage: 'none',
   minHeight: '1523px',
   minWidth: '3671px',
@@ -26,7 +25,7 @@ const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
           cy="50"
           r="40"
           stroke="black"
-          stroke-width="2"
+          strokeWidth="2"
           fill="red"
         />
       </svg>

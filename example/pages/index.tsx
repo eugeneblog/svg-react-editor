@@ -1,5 +1,5 @@
 import React from 'react';
-import Editor, { Flow, ItemPane } from '../../src/index';
+import Editor, { Flow, ItemPane, Menu, Tools } from '../../src/index';
 
 const radius = 6;
 const step = radius * 2;
@@ -21,6 +21,8 @@ const data = {
 const Graph = () => {
   return (
     <Editor>
+      <Menu />
+      <Tools />
       <Flow />
       <ItemPane />
     </Editor>
