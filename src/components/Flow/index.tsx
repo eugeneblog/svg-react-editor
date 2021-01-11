@@ -19,7 +19,6 @@ interface FlowProps {
 
 const Flow: EditorChildrenFunComponent<FlowProps> = () => {
   const ctx = useContext(EditorContext);
-
   const onEditHand: TabsProps['onEdit'] = (targetKey, action) => {
     ctx.tabUtil[action](targetKey);
   };

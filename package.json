@@ -60,6 +60,7 @@
     "lib"
   ],
   "dependencies": {
+    "@ant-design/icons": "^4.3.0",
     "@types/d3": "^6.2.0",
     "antd": "^4.9.4",
     "d3": "^6.3.1",
