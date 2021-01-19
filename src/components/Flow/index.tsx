@@ -1,63 +1,63 @@
 import { Tabs } from 'antd';
-import { TabsProps } from 'antd/lib/tabs/index';
-import React, { useEffect, useContext } from 'react';
-import * as d3 from 'd3';
-import { ZoomBehavior } from 'd3';
-import { GraphConfig, EditorChildrenFunComponent } from '@/common/interface';
+import pick from 'lodash/pick';
+import { TabsProps, TabPaneProps } from 'antd/lib/tabs/index';
+import React from 'react';
+import { EditorChildrenFunComponent } from '@/common/interface';
 import Drawing from '../Drawing/index';
-import { EditorContext } from '../EditorContext';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
 
-interface FlowProps {
-  id: string;
-  style?: React.CSSProperties;
-  className?: string;
-  graphConfig?: Partial<GraphConfig>;
+export interface FlowTabProps extends TabPaneProps {
+  attrs?: React.SVGAttributes<SVGElement>;
+  title?: string;
+  key?: TabsProps['activeKey'];
+  data?: any;
 }
 
-const Flow: EditorChildrenFunComponent<FlowProps> = () => {
-  const ctx = useContext(EditorContext);
-  const onEditHand: TabsProps['onEdit'] = (targetKey, action) => {
-    ctx.tabUtil[action](targetKey);
-  };
+interface FlowProps extends TabsProps {
+  style?: React.CSSProperties;
+  className?: string;
+  tabs?: FlowTabProps[];
+}
 
+const __DEFAULT_TABS: FlowTabProps[] = [
+  {
+    title: 'draw 1',
+    key: '1',
+    data: null,
+    closable: false,
+  },
+  {
+    title: 'draw 2',
+    key: '2',
+    data: null,
+  },
+];
+
+const Flow: EditorChildrenFunComponent<FlowProps> = props => {
   return (
     <div className={styles.flow}>
-      {ctx.tabs.length ? (
-        <Tabs
-          tabPosition="bottom"
-          type="editable-card"
-          animated={false}
-          className={styles.tabs}
-          activeKey={ctx.activeKey}
-          onChange={activeKey => {
-            ctx.tabUtil.setActive(activeKey);
-          }}
-          onEdit={onEditHand}
-        >
-          {ctx.tabs.map(pane => (
-            <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
-              <Drawing attrs={pane.attrs} data={pane.data} />
-            </TabPane>
-          ))}
-        </Tabs>
-      ) : null}
+      <Tabs
+        {...pick(props, ['tabPosition', 'type', 'animated'])}
+        className={styles.tabs}
+      >
+        {props.tabs?.length
+          ? props.tabs.map(pane => (
+              <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
+                <Drawing attrs={pane.attrs} data={pane.data} />
+              </TabPane>
+            ))
+          : __DEFAULT_TABS.map(pane => (
+              <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
+                <Drawing attrs={pane.attrs} data={pane.data} />
+              </TabPane>
+            ))}
+      </Tabs>
     </div>
   );
 };
 
 Flow.typename = 'FLOW';
-
-function useRenderDataToSvg() {
-  useEffect(() => {
-    const svg = d3.select('svg');
-    const g = svg.append('g');
-    const zoom: ZoomBehavior<any, any> = d3.zoom().scaleExtent([1, 40]);
-    g.selectAll('circle').data([]);
-    svg.call(zoom);
-  }, []);
-}
 
 export default Flow;
