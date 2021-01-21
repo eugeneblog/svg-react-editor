@@ -1,24 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Editor, { Flow, ItemPane, EditorMenu, Tools } from '../../src/index';
 
 const Graph = () => {
-  const [activeKey, setActiveKey] = useState('1');
-  const onEditHand = () => {};
-
   return (
     <Editor>
       <EditorMenu />
       <Tools />
-      <Flow
-        tabPosition="bottom"
-        type="editable-card"
-        animated={false}
-        activeKey={activeKey}
-        onChange={(activeKey: string) => {
-          setActiveKey(activeKey);
-        }}
-        onEdit={onEditHand}
-      />
+      <Flow tabPosition="bottom" type="editable-card" animated={false} />
       <ItemPane />
     </Editor>
   );

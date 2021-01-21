@@ -1,7 +1,6 @@
 import { Tabs } from 'antd';
-import pick from 'lodash/pick';
 import { TabsProps, TabPaneProps } from 'antd/lib/tabs/index';
-import React from 'react';
+import React, { useState } from 'react';
 import { EditorChildrenFunComponent } from '@/common/interface';
 import Drawing from '../Drawing/index';
 import styles from './index.less';
@@ -35,11 +34,56 @@ const __DEFAULT_TABS: FlowTabProps[] = [
   },
 ];
 
+let newTabIndex = 0;
+
 const Flow: EditorChildrenFunComponent<FlowProps> = props => {
+  const [tabs, setTabs] = useState(props.tabs || __DEFAULT_TABS);
+  const [activeKey, setActive] = useState(props.activeKey || tabs[0].key);
+
+  const add = () => {
+    const activeKey = `newTab${newTabIndex++}`;
+    const newPanes = [...tabs];
+    newPanes.push({ title: 'New Tab', key: activeKey });
+    setTabs(newPanes);
+    setActive(activeKey);
+  };
+
+  const remove = (targetKey: any) => {
+    let newActiveKey = activeKey;
+    let lastIndex = 0;
+    tabs.forEach((pane, i) => {
+      if (pane.key === targetKey) {
+        lastIndex = i - 1;
+      }
+    });
+    const newPanes = tabs.filter(pane => pane.key !== targetKey);
+    if (newPanes.length && newActiveKey === targetKey) {
+      if (lastIndex >= 0) {
+        newActiveKey = newPanes[lastIndex].key;
+      } else {
+        newActiveKey = newPanes[0].key;
+      }
+    }
+    setTabs(newPanes);
+    setActive(newActiveKey);
+  };
+
   return (
     <div className={styles.flow}>
       <Tabs
-        {...pick(props, ['tabPosition', 'type', 'animated'])}
+        onEdit={(e, action) => {
+          if (action === 'add') {
+            add();
+          }
+          if (action === 'remove') {
+            remove(e);
+          }
+        }}
+        activeKey={activeKey}
+        onChange={key => {
+          setActive(key);
+        }}
+        {...props}
         className={styles.tabs}
       >
         {props.tabs?.length
@@ -48,7 +92,7 @@ const Flow: EditorChildrenFunComponent<FlowProps> = props => {
                 <Drawing attrs={pane.attrs} data={pane.data} />
               </TabPane>
             ))
-          : __DEFAULT_TABS.map(pane => (
+          : tabs.map(pane => (
               <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>
                 <Drawing attrs={pane.attrs} data={pane.data} />
               </TabPane>
