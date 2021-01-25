@@ -1,18 +1,14 @@
+import React from 'react';
 import { Tabs } from 'antd';
-import { TabsProps, TabPaneProps } from 'antd/lib/tabs/index';
-import React, { useState } from 'react';
+import { useStoreState } from '../../hooks/store';
+import { useCommand } from '../../hooks/command';
+import { FlowTabProps } from '../../models/flowModal';
+import { TabsProps } from 'antd/lib/tabs/index';
 import { EditorChildrenFunComponent } from '@/common/interface';
 import Drawing from '../Drawing/index';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
-
-export interface FlowTabProps extends TabPaneProps {
-  attrs?: React.SVGAttributes<SVGElement>;
-  title?: string;
-  key?: TabsProps['activeKey'];
-  data?: any;
-}
 
 interface FlowProps extends TabsProps {
   style?: React.CSSProperties;
@@ -20,53 +16,10 @@ interface FlowProps extends TabsProps {
   tabs?: FlowTabProps[];
 }
 
-const __DEFAULT_TABS: FlowTabProps[] = [
-  {
-    title: 'draw 1',
-    key: '1',
-    data: null,
-    closable: false,
-  },
-  {
-    title: 'draw 2',
-    key: '2',
-    data: null,
-  },
-];
-
-let newTabIndex = 0;
-
 const Flow: EditorChildrenFunComponent<FlowProps> = props => {
-  const [tabs, setTabs] = useState(props.tabs || __DEFAULT_TABS);
-  const [activeKey, setActive] = useState(props.activeKey || tabs[0].key);
-
-  const add = () => {
-    const activeKey = `newTab${newTabIndex++}`;
-    const newPanes = [...tabs];
-    newPanes.push({ title: 'New Tab', key: activeKey });
-    setTabs(newPanes);
-    setActive(activeKey);
-  };
-
-  const remove = (targetKey: any) => {
-    let newActiveKey = activeKey;
-    let lastIndex = 0;
-    tabs.forEach((pane, i) => {
-      if (pane.key === targetKey) {
-        lastIndex = i - 1;
-      }
-    });
-    const newPanes = tabs.filter(pane => pane.key !== targetKey);
-    if (newPanes.length && newActiveKey === targetKey) {
-      if (lastIndex >= 0) {
-        newActiveKey = newPanes[lastIndex].key;
-      } else {
-        newActiveKey = newPanes[0].key;
-      }
-    }
-    setTabs(newPanes);
-    setActive(newActiveKey);
-  };
+  const tabs = useStoreState(status => status.tabs);
+  const active = useStoreState(status => status.active);
+  const { add, remove, onChange } = useCommand();
 
   return (
     <div className={styles.flow}>
@@ -79,10 +32,8 @@ const Flow: EditorChildrenFunComponent<FlowProps> = props => {
             remove(e);
           }
         }}
-        activeKey={activeKey}
-        onChange={key => {
-          setActive(key);
-        }}
+        activeKey={active}
+        onChange={onChange}
         {...props}
         className={styles.tabs}
       >
@@ -104,4 +55,5 @@ const Flow: EditorChildrenFunComponent<FlowProps> = props => {
 
 Flow.typename = 'FLOW';
 
+// type initFlowData = { tabs: FlowTabProps[], active: TabsProps['activeKey'] }
 export default Flow;
