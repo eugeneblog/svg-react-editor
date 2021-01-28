@@ -19,8 +19,11 @@ interface FlowProps extends TabsProps {
 const Flow: EditorChildrenFunComponent<FlowProps> = props => {
   const tabs = useStoreState(status => status.tabs);
   const active = useStoreState(status => status.active);
-  const { add, remove, onChange } = useCommand();
+  const { add, remove, onChange, saveAs } = useCommand();
 
+  React.useEffect(() => {
+    saveAs();
+  }, []);
   return (
     <div className={styles.flow}>
       <Tabs

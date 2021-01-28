@@ -62,6 +62,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.3.0",
     "@types/d3": "^6.2.0",
+    "@types/lodash": "^4.14.168",
     "antd": "^4.9.4",
     "d3": "^6.3.1",
     "easy-peasy": "^4.0.1",
