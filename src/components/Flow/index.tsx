@@ -1,8 +1,8 @@
 import React from 'react';
 import { Tabs } from 'antd';
-import { useStoreState } from '../../hooks/store';
+import { useStoreState } from '../../hooks/easyPeasyHook';
 import { useCommand } from '../../hooks/command';
-import { FlowTabProps } from '../../models/flowModal';
+import { FlowTabProps } from '../../models/FlowModel';
 import { TabsProps } from 'antd/lib/tabs/index';
 import { EditorChildrenFunComponent } from '@/common/interface';
 import Drawing from '../Drawing/index';

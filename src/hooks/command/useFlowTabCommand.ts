@@ -1,4 +1,4 @@
-import { useStoreState, useStoreActions } from '../store';
+import { useStoreState, useStoreActions } from '../easyPeasyHook';
 
 let newTabIndex = 0;
 

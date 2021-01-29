@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStoreState } from '../store';
+import { useStoreState } from '../easyPeasyHook';
 
 export default function usePageCmd() {
   const tabs = useStoreState(status => status.tabs);
