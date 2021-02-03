@@ -1,32 +1,8 @@
 import React from 'react';
 import { Button, Tooltip } from 'antd';
-import { ZoomOutOutlined, ZoomInOutlined } from '@ant-design/icons';
 import { useGetCommand } from '../../hooks/command';
-
-/**
- * 命令组件
- */
-export enum EditorCommand {
-  Undo = 'undo',
-  Redo = 'redo',
-  Copy = 'copy',
-  Paste = 'paste',
-  Remove = 'remove',
-  ZoomIn = 'zoomIn',
-  ZoomOut = 'zoomOut',
-  Save = 'save',
-  SaveAs = 'saveAs',
-}
-
-const CommandIcon: React.FC<{ name: EditorCommand }> = ({ name }) => {
-  if (name === EditorCommand.ZoomIn) {
-    return <ZoomInOutlined />;
-  }
-  if (name === EditorCommand.ZoomOut) {
-    return <ZoomOutOutlined />;
-  }
-  return null;
-};
+import { EditorCommand } from './interfact';
+import { CommandIcon } from './Icons';
 
 interface CommandProps {
   name: EditorCommand;
@@ -35,35 +11,32 @@ interface CommandProps {
   tooltip?: string;
 }
 
-const Command: React.FC<CommandProps> = props => {
+export const Command: React.FC<CommandProps> = props => {
   const commandHandle = useGetCommand(props.name);
   const { disabled, name, tooltip } = props;
 
+  const CommandButton = (
+    <Button
+      type="link"
+      disabled={disabled}
+      icon={CommandIcon[name]}
+      onClick={commandHandle}
+    >
+      {props.children}
+    </Button>
+  );
+
   if (!tooltip) {
-    return (
-      <Button
-        type="link"
-        disabled={disabled}
-        icon={<CommandIcon name={name} />}
-        onClick={commandHandle}
-      >
-        {props.children}
-      </Button>
-    );
+    return CommandButton;
   } else {
     return (
       <Tooltip placement="top" title={tooltip} arrowPointAtCenter>
-        <Button
-          type="link"
-          disabled={disabled}
-          icon={<CommandIcon name={name} />}
-          onClick={commandHandle}
-        >
-          {props.children}
-        </Button>
+        {CommandButton}
       </Tooltip>
     );
   }
 };
+
+export const aa = {};
 
 export default Command;

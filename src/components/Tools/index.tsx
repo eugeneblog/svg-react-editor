@@ -1,5 +1,6 @@
 import React from 'react';
-import Command, { EditorCommand } from '../Command';
+import Command from '../Command';
+import { EditorCommand } from '../Command/interfact';
 import { EditorChildrenFunComponent } from '../../common/interface';
 import styles from './index.less';
 
