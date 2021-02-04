@@ -1,31 +1,28 @@
 import React from 'react';
 import { Menu, Dropdown } from 'antd';
-import { EditorChildrenClassComponent } from '../../common/interface';
+import { EditorChildrenFunComponent } from '../../common/interface';
+import { Command } from '../Command';
+import { EditorCommand } from '../Command/interfact';
 import Header from '../Header';
 import styles from './index.less';
 
-const { SubMenu } = Menu;
+// const { SubMenu } = Menu;
 
 interface MenuProps {}
-interface MenuStatus {}
 
 const menus = [
   {
     name: 'File',
     overlay: (
       <Menu>
-        <Menu.ItemGroup title="Group title">
-          <Menu.Item>1st menu item</Menu.Item>
-          <Menu.Item>2nd menu item</Menu.Item>
+        <Menu.ItemGroup>
+          <Menu.Item>
+            <Command name={EditorCommand.Save}>保存</Command>
+          </Menu.Item>
+          <Menu.Item>
+            <Command name={EditorCommand.SaveAs}>另存为</Command>
+          </Menu.Item>
         </Menu.ItemGroup>
-        <SubMenu title="sub menu">
-          <Menu.Item>3rd menu item</Menu.Item>
-          <Menu.Item>4th menu item</Menu.Item>
-        </SubMenu>
-        <SubMenu title="disabled sub menu" disabled>
-          <Menu.Item>5d menu item</Menu.Item>
-          <Menu.Item>6th menu item</Menu.Item>
-        </SubMenu>
       </Menu>
     ),
   },
@@ -33,39 +30,46 @@ const menus = [
     name: 'Edit',
     overlay: (
       <Menu>
-        <Menu.ItemGroup title="Group title">
-          <Menu.Item>1st menu item</Menu.Item>
-          <Menu.Item>2nd menu item</Menu.Item>
+        <Menu.ItemGroup>
+          <Menu.Item>
+            <Command name={EditorCommand.Undo}>撤销</Command>
+          </Menu.Item>
+          <Menu.Item>
+            <Command name={EditorCommand.Redo}>恢复</Command>
+          </Menu.Item>
         </Menu.ItemGroup>
-        <SubMenu title="sub menu">
-          <Menu.Item>3rd menu item</Menu.Item>
-          <Menu.Item>4th menu item</Menu.Item>
-        </SubMenu>
-        <SubMenu title="disabled sub menu" disabled>
-          <Menu.Item>5d menu item</Menu.Item>
-          <Menu.Item>6th menu item</Menu.Item>
-        </SubMenu>
+        <Menu.ItemGroup>
+          <Menu.Item>
+            <Command name={EditorCommand.Copy}>复制</Command>
+          </Menu.Item>
+          <Menu.Item>
+            <Command name={EditorCommand.Paste}>粘贴</Command>
+          </Menu.Item>
+          <Menu.Item>
+            <Command name={EditorCommand.Remove}>删除</Command>
+          </Menu.Item>
+        </Menu.ItemGroup>
       </Menu>
     ),
   },
 ];
 
-export default class EditorMenu extends React.Component<MenuProps, MenuStatus>
-  implements EditorChildrenClassComponent {
-  static typename = 'MENU';
-  render() {
-    return (
-      <Header className={styles.editorMenu}>
-        <div className={styles.menuWrap}>
-          {menus.map((menu, ind) => {
-            return (
-              <Dropdown key={ind} overlay={menu.overlay}>
-                <a className={styles.aItem}>{menu.name}</a>
-              </Dropdown>
-            );
-          })}
-        </div>
-      </Header>
-    );
-  }
-}
+export const EditorMenu: EditorChildrenFunComponent<MenuProps> = () => {
+  return (
+    <Header className={styles.editorMenu}>
+      <div className={styles.menuWrap}>
+        {menus.map((menu, ind) => {
+          return (
+            <Dropdown key={ind} overlay={menu.overlay}>
+              <a className={styles.aItem}>{menu.name}</a>
+            </Dropdown>
+          );
+        })}
+      </div>
+    </Header>
+  );
+};
+
+EditorMenu.typename = 'MENU';
+
+export default EditorMenu;

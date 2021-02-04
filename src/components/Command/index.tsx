@@ -37,6 +37,4 @@ export const Command: React.FC<CommandProps> = props => {
   }
 };
 
-export const aa = {};
-
 export default Command;
