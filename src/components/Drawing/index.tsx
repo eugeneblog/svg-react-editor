@@ -22,12 +22,13 @@ const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
   const ref = React.useRef<SVGAElement>(null);
   useDrag(ref);
   useZoom(ref);
-  useGrid(ref);
 
   return (
     <div className={styles.digaramContainer}>
       <svg style={svgStyle} {...attrs} ref={ref}>
-        <circle cx="100" cy="50" r="40" strokeWidth="2" fill="red" />
+        <g>
+          <circle cx="100" cy="50" r="40" strokeWidth="2" fill="red" />
+        </g>
       </svg>
     </div>
   );
@@ -64,74 +65,11 @@ function useZoom(ref: React.RefObject<SVGAElement>) {
       .scaleExtent([0.5, 32])
       .on('zoom', zoomed);
     const svg = ref.current;
-    const gx = d3.select(svg).append('g');
-    const gy = d3.select(svg).append('g');
-
-    const gDot = d3
-      .select(svg)
-      .append('g')
-      .attr('fill', 'none')
-      .attr('stroke-linecap', 'round');
-
-    const data = (function() {
-      const random = d3.randomNormal(0, 0.2);
-      const sqrt3 = Math.sqrt(3);
-      return [].concat(
-        Array.from({ length: 300 }, () => [
-          random() + sqrt3,
-          random() + 1,
-          0,
-        ]) as any,
-        Array.from({ length: 300 }, () => [
-          random() - sqrt3,
-          random() + 1,
-          1,
-        ]) as any,
-        Array.from({ length: 300 }, () => [random(), random() - 1, 2]) as any,
-      );
-    })();
-
-    const k = svg !== null ? svg.clientHeight / svg.clientWidth : 0;
-    const w = svg ? svg.clientWidth : 0;
-    const x = d3
-      .scaleLinear()
-      .domain([-4.5, 4.5])
-      .range([0, w]);
-    const y = d3.scaleLinear().domain([-4.5 * k, 4.5 * k]);
-
-    gDot
-      .selectAll('path')
-      .data(data)
-      .join('path')
-      .attr('d', d => `M${x(d[0])},${y(d[1])}h0`)
-      .attr('stroke', '#1f77b4');
-
-    function zoomed(e: D3ZoomEvent<any, any>) {
-      const { transform } = e;
-      const zx = transform.rescaleX(x).interpolate(d3.interpolateRound);
-      const zy = transform.rescaleY(y).interpolate(d3.interpolateRound);
-      gDot.attr('transform', transform).attr('stroke-width', 5 / transform.k);
-      gx.call(function(g) {
-        return g;
-      }, zx);
-      gy.call(function(g) {
-        return g;
-      }, zy);
+    const g = d3.select(svg).selectAll('g');
+    function zoomed(e: D3ZoomEvent<SVGElement, any>) {
+      g.attr('transform', e.transform as any);
     }
-    d3.select(svg)
-      .call(zoom)
-      .call(zoom.transform, d3.zoomIdentity);
-  }, []);
-}
-
-function useGrid(ref: React.RefObject<SVGElement>) {
-  React.useEffect(() => {
-    const svg = ref.current;
-    const gGrid = d3
-      .select(svg)
-      .append('g')
-      .attr('fill', 'none')
-      .attr('stroke-linecap', 'round');
+    d3.select(svg).call(zoom);
   }, []);
 }
 
