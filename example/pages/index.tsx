@@ -7,7 +7,7 @@ const Graph = () => {
       <EditorMenu />
       <Tools />
       <Flow tabPosition="bottom" type="editable-card" animated={false} />
-      <ItemPane />
+      <ItemPane panes={[]} />
     </Editor>
   );
 };
