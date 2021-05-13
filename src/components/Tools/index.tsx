@@ -12,6 +12,12 @@ const Tools: EditorChildrenFunComponent<ToolsProps> = () => {
       <div className={styles.wrap}>
         <Command name={EditorCommand.ZoomIn}></Command>
         <Command name={EditorCommand.ZoomOut}></Command>
+
+        <Command name={EditorCommand.Copy}></Command>
+        <Command name={EditorCommand.Remove}></Command>
+
+        <Command name={EditorCommand.Redo}></Command>
+        <Command name={EditorCommand.Undo}></Command>
       </div>
     </div>
   );

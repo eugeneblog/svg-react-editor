@@ -6,7 +6,6 @@ import {
   UndoOutlined,
   RedoOutlined,
   CopyOutlined,
-  PauseOutlined,
   DeleteOutlined,
   SaveOutlined,
 } from '@ant-design/icons';
@@ -21,7 +20,6 @@ export const CommandIcon: EnumIconElement = {
   [EditorCommand.Undo]: <UndoOutlined />,
   [EditorCommand.Redo]: <RedoOutlined />,
   [EditorCommand.Copy]: <CopyOutlined />,
-  [EditorCommand.Paste]: <PauseOutlined />,
   [EditorCommand.Remove]: <DeleteOutlined />,
   [EditorCommand.Save]: <SaveOutlined />,
   [EditorCommand.SaveAs]: <SaveOutlined />,
