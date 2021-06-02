@@ -20,6 +20,7 @@ const svgStyle: React.CSSProperties = {
 
 const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
   const ref = React.useRef<SVGAElement>(null);
+  useGrid(ref);
   useDrag(ref);
   useZoom(ref);
 
@@ -65,11 +66,51 @@ function useZoom(ref: React.RefObject<SVGAElement>) {
       .scaleExtent([0.5, 32])
       .on('zoom', zoomed);
     const svg = ref.current;
-    const g = d3.select(svg).selectAll('g');
+    const g = d3.select(svg).selectAll('g:nth-child(1)');
     function zoomed(e: D3ZoomEvent<SVGElement, any>) {
       g.attr('transform', e.transform as any);
     }
     d3.select(svg).call(zoom);
+  }, []);
+}
+
+function useGrid(ref: React.RefObject<SVGAElement>) {
+  React.useEffect(() => {
+    const x = d3.scaleLinear().range([0, 3670]);
+    const y = d3.scaleLinear().range([1523, 0]);
+    const path = d3
+      .line()
+      .x(function(t) {
+        return x(t as any);
+      })
+      .y(function(t) {
+        return y(t as any);
+      });
+    const svg = ref.current;
+
+    d3.select(svg)
+      .append('g')
+      .attr('class', 'axis axis--x')
+      .call(
+        d3
+          .axisBottom(x)
+          .tickSize(-3670)
+          .tickPadding(6) as any,
+      )
+      .append('text')
+      .attr('text-anchor', 'end')
+      .attr('font-weight', 'bold')
+      .text('t = ');
+
+    d3.select(svg)
+      .append('g')
+      .attr('class', 'axis axis--y')
+      .call(
+        d3
+          .axisLeft(y)
+          .tickSize(-1523)
+          .tickPadding(6),
+      );
   }, []);
 }
 
