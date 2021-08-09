@@ -35,6 +35,7 @@ const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
   );
 };
 
+// 元素拖拽
 function useDrag(ref: React.RefObject<SVGAElement>) {
   React.useEffect(() => {
     const svg = ref.current;
@@ -59,6 +60,7 @@ function useDrag(ref: React.RefObject<SVGAElement>) {
   }, []);
 }
 
+// svg画布缩放
 function useZoom(ref: React.RefObject<SVGAElement>) {
   React.useEffect(() => {
     const zoom: d3.ZoomBehavior<any, any> = d3
@@ -74,43 +76,38 @@ function useZoom(ref: React.RefObject<SVGAElement>) {
   }, []);
 }
 
+// 网格线
 function useGrid(ref: React.RefObject<SVGAElement>) {
   React.useEffect(() => {
-    const x = d3.scaleLinear().range([0, 3670]);
-    const y = d3.scaleLinear().range([1523, 0]);
-    const path = d3
-      .line()
-      .x(function(t) {
-        return x(t as any);
-      })
-      .y(function(t) {
-        return y(t as any);
-      });
-    const svg = ref.current;
+    const svg = ref.current,
+      space = 100,
+      w = svg?.scrollWidth || 0,
+      h = svg?.scrollHeight || 0,
+      data = d3.range(w / space);
 
     d3.select(svg)
       .append('g')
-      .attr('class', 'axis axis--x')
-      .call(
-        d3
-          .axisBottom(x)
-          .tickSize(-3670)
-          .tickPadding(6) as any,
-      )
-      .append('text')
-      .attr('text-anchor', 'end')
-      .attr('font-weight', 'bold')
-      .text('t = ');
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('x1', d => d * space)
+      .attr('x2', d => d * space)
+      .attr('y1', 0)
+      .attr('y2', h)
+      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.5');
 
     d3.select(svg)
       .append('g')
-      .attr('class', 'axis axis--y')
-      .call(
-        d3
-          .axisLeft(y)
-          .tickSize(-1523)
-          .tickPadding(6),
-      );
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('line')
+      .attr('y1', d => d * space)
+      .attr('y2', d => d * space)
+      .attr('x1', 0)
+      .attr('x2', w)
+      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.5');
   }, []);
 }
 
