@@ -32,8 +32,6 @@ export default function usePageCmd() {
 
   const paste = React.useCallback(function() {}, []);
 
-  const remove = React.useCallback(function() {}, []);
-
   return {
     save,
     saveAs,
@@ -41,7 +39,6 @@ export default function usePageCmd() {
     undo,
     copy,
     paste,
-    remove,
     ...ZoomCommands,
   };
 }

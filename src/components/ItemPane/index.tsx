@@ -1,46 +1,25 @@
 import React from 'react';
-import { Collapse } from 'antd';
-import { CollapsePanelProps } from 'antd/lib/collapse';
+import { Collapse, Empty, Button } from 'antd';
+// import { CollapsePanelProps } from 'antd/lib/collapse';
+import { __DEFAULT_MATERIAL } from '../../static/DEFAULT';
+import { PaneContent } from './PaneContent';
 import { EditorChildrenFunComponent } from '../../common/interface';
 import { CaretRightOutlined } from '@ant-design/icons';
 import styles from './index.less';
 
 const { Panel } = Collapse;
 
-interface ItemPaneProps {}
+export type ItemPaneArray = Array<{
+  id: string;
+  title: string;
+  content: [];
+}>;
 
-const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
+interface ItemPaneProps {
+  panes: ItemPaneArray;
+}
 
-export const Item: React.FC<any> = () => {
-  return <div>aa</div>;
-};
-
-export const ItemGroup: React.FC<CollapsePanelProps> = props => {
-  const AllowChild: React.ReactElement[] = [];
-
-  // 验证子组件是否为Item
-  React.Children.forEach(props.children, child => {
-    if (!child) {
-      return;
-    }
-    if ((child as any).type.name === 'Item') {
-      AllowChild.push(child as React.ReactElement);
-    }
-    return;
-  });
-
-  return (
-    <Panel key={props.key} header={props.header}>
-      {AllowChild}
-    </Panel>
-  );
-};
-
-const ItemPane: EditorChildrenFunComponent<ItemPaneProps> = () => {
+const ItemPane: EditorChildrenFunComponent<ItemPaneProps> = ({ panes }) => {
   return (
     <div className={styles.itemPane}>
       <Collapse
@@ -51,15 +30,17 @@ const ItemPane: EditorChildrenFunComponent<ItemPaneProps> = () => {
         )}
         className={styles.box}
       >
-        <Panel header="This is panel header 1" key="1">
-          <p>{text}</p>
-        </Panel>
-        <Panel header="This is panel header 2" key="2">
-          <p>{text}</p>
-        </Panel>
-        <ItemGroup header="This is panel header 3" key="3">
-          <Item />
-        </ItemGroup>
+        {panes.length
+          ? panes.map(item => (
+              <Panel key={item.id} header={item.title}>
+                <PaneContent content={item.content} />
+              </Panel>
+            ))
+          : __DEFAULT_MATERIAL.map(item => (
+              <Panel key={item.id} header={item.title}>
+                <PaneContent content={item.content} />
+              </Panel>
+            ))}
       </Collapse>
     </div>
   );

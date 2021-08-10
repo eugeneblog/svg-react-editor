@@ -43,9 +43,6 @@ const menus = [
             <Command name={EditorCommand.Copy}>复制</Command>
           </Menu.Item>
           <Menu.Item>
-            <Command name={EditorCommand.Paste}>粘贴</Command>
-          </Menu.Item>
-          <Menu.Item>
             <Command name={EditorCommand.Remove}>删除</Command>
           </Menu.Item>
         </Menu.ItemGroup>
