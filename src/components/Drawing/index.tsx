@@ -18,19 +18,16 @@ const svgStyle: React.CSSProperties = {
   minWidth: '3671px',
 };
 
-const Drawing: React.FC<DrawingProps> = ({ attrs }) => {
+const Drawing: React.FC<DrawingProps> = ({ attrs, data }) => {
   const ref = React.useRef<SVGAElement>(null);
   useGrid(ref);
   useDrag(ref);
-  useZoom(ref);
+  // useZoom(ref);
+  console.log(data);
 
   return (
     <div className={styles.digaramContainer}>
-      <svg style={svgStyle} {...attrs} ref={ref}>
-        <g>
-          <circle cx="100" cy="50" r="40" strokeWidth="2" fill="red" />
-        </g>
-      </svg>
+      <svg style={svgStyle} {...attrs} ref={ref}></svg>
     </div>
   );
 };
@@ -80,7 +77,7 @@ function useZoom(ref: React.RefObject<SVGAElement>) {
 function useGrid(ref: React.RefObject<SVGAElement>) {
   React.useEffect(() => {
     const svg = ref.current,
-      space = 100,
+      space = 50,
       w = svg?.scrollWidth || 0,
       h = svg?.scrollHeight || 0,
       data = d3.range(w / space);
@@ -95,7 +92,7 @@ function useGrid(ref: React.RefObject<SVGAElement>) {
       .attr('x2', d => d * space)
       .attr('y1', 0)
       .attr('y2', h)
-      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.5');
+      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.2');
 
     d3.select(svg)
       .append('g')
@@ -107,7 +104,7 @@ function useGrid(ref: React.RefObject<SVGAElement>) {
       .attr('y2', d => d * space)
       .attr('x1', 0)
       .attr('x2', w)
-      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.5');
+      .attr('style', 'stroke:rgb(99,99,99);stroke-width:0.2');
   }, []);
 }
 
