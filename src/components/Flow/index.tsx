@@ -2,21 +2,13 @@ import React from 'react';
 import { Tabs } from 'antd';
 import { useStoreState } from '../../hooks/easyPeasyHook';
 import { useCommand } from '../../hooks/command';
-import { FlowTabProps } from '../../models/FlowModel';
-import { TabsProps } from 'antd/lib/tabs/index';
-import { EditorChildrenFunComponent } from '@/common/interface';
+import FlowType from '@/common/interface/FlowType';
 import Drawing from '../Drawing/index';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
 
-interface FlowProps extends TabsProps {
-  style?: React.CSSProperties;
-  className?: string;
-  tabs?: FlowTabProps[];
-}
-
-const Flow: EditorChildrenFunComponent<FlowProps> = props => {
+const Flow: FlowType = props => {
   const tabs = useStoreState(status => status.tabs);
   const active = useStoreState(status => status.active);
   const { add, remove, onChange, saveAs } = useCommand();
@@ -58,5 +50,4 @@ const Flow: EditorChildrenFunComponent<FlowProps> = props => {
 
 Flow.typename = 'FLOW';
 
-// type initFlowData = { tabs: FlowTabProps[], active: TabsProps['activeKey'] }
 export default Flow;

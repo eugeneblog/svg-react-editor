@@ -1,37 +1,17 @@
-import { action, Action, computed, Computed } from 'easy-peasy';
-import { TabsProps, TabPaneProps } from 'antd/lib/tabs/index';
-
-export interface FlowTabProps extends TabPaneProps {
-  attrs?: React.SVGAttributes<SVGElement>;
-  title?: string;
-  key: TabsProps['activeKey'];
-  data?: any;
-}
-
-export interface FlowTabStatus {
-  zoom: number;
-}
-
-export interface FlowModal {
-  tabs: FlowTabProps[];
-  active: TabsProps['activeKey'];
-  setTabs: Action<FlowModal, FlowTabProps[]>;
-  setActive: Action<FlowModal, TabsProps['activeKey']>;
-  currentTab: Computed<FlowModal, FlowTabProps>;
-  tabsStatus: Computed<FlowModal, FlowTabStatus[]>;
-}
+import { action, computed } from 'easy-peasy';
+import { FlowTabProps, FlowModal } from '@/common/interface/FlowType';
 
 const __DEFAULT_TABS: FlowTabProps[] = [
   {
     title: 'draw 1',
     key: '1',
-    data: null,
+    data: [],
     closable: false,
   },
   {
     title: 'draw 2',
     key: '2',
-    data: null,
+    data: [],
   },
 ];
 

@@ -2,6 +2,7 @@ import React from 'react';
 import * as d3 from 'd3';
 import styles from './index.less';
 import { D3ZoomEvent } from 'd3';
+import useRender from './useRender';
 
 interface DrawingProps {
   attrs: any;
@@ -22,8 +23,7 @@ const Drawing: React.FC<DrawingProps> = ({ attrs, data }) => {
   const ref = React.useRef<SVGAElement>(null);
   useGrid(ref);
   useDrag(ref);
-  // useZoom(ref);
-  console.log(data);
+  useRender(ref, data);
 
   return (
     <div className={styles.digaramContainer}>

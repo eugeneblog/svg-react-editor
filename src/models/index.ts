@@ -1,5 +1,6 @@
 import { createStore } from 'easy-peasy';
-import flowModal, { FlowModal } from './FlowModel';
+import { FlowModal } from '@/common/interface/FlowType';
+import flowModal from './FlowModel';
 
 export interface StoreModal extends FlowModal {}
 
